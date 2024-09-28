@@ -20,10 +20,10 @@ class MenuItem(models.Model):
 class RecipeIngredient(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    quantity = models.FloatField()
 
     def __str__(self):
-        return self.menu_item
+        return f"{self.menu_item} - {self.ingredient} - {self.quantity}"
 
 class Purchase(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
@@ -44,4 +44,4 @@ class Purchase(models.Model):
     status = models.CharField(max_length=2, choices=PURCHASE_STATUS, default=PENDING)
 
     def __str__(self):
-        return f"Purchase of {self.menu_item.name} on {self.date} - Status: {self.get_status_display()}"
+        return f"Purchase of {self.menu_item.title} on {self.date} - Status: {self.get_status_display()}"
